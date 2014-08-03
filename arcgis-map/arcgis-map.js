@@ -1,26 +1,35 @@
 (function() {
 	var isReady = false;
   Polymer('arcgis-map', {
-    owner: "Daniel",
+    lat: -56.049,
+		long: 38.485,
+		map: {},
 		ready: function() {
-        var map;
-        var elem = this.$.mapDiv;
-        //var mapDiv = document.createElement("div");
-        //document.body.appendChild(t);
+      var c = this;
 
-        require([
-          "esri/map",
-          //"dojo/domReady!"
-        ], function(Map) {
-          //debugger
-          //Eleme debería ser el ID no el elemento
-          map = new Map(elem, {
-            center: [-56.049, 38.485], //Latitud y longitud
-            zoom: 3,
-            basemap: "streets"
-          });
+      require([
+        "esri/map",
+      ], function(Map) {
+
+        c.map = new Map(c.$.mapDiv, {
+          center: [c.lat, c.long],
+          zoom: 3,
+          basemap: "streets"
         });
-      }
-    }
-  );
+      });
+    },
+
+		centerAt: function(lat, long){
+			var c = this;
+			c.lat=lat;
+			c.long=long;
+
+			require([
+			  "esri/geometry/Point"
+			], function(Point) {
+			  c.map.centerAt(new Point(c.lat, c.long));
+			});
+		}
+  });
+
 })();

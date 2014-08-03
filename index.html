@@ -15,6 +15,27 @@
   </style>
 
   <body>
-    <arcgis-map id="mapa"></arcgis-map>
+
+      <p>Use <i>centerAt(lat,long)</i> component method:</p>
+      <p><label>Latitude: <input type="text" id="lat" value="-3"></label></p>
+      <p><label>Longitude: <input type="text" id="long" value="42"></label></p>
+      <p><button type="submit" id="update">Update"></button>
+
+
+    <arcgis-map
+      id="mapa"
+      lat="-3"
+      long="40"
+    ></arcgis-map>
+
+    <script>
+    document.getElementById('update').addEventListener(
+      'click', function(addEventListener){
+        var lat = document.getElementById("lat").value;
+        var long = document.getElementById("long").value;
+        document.getElementById("mapa").centerAt(lat,long)
+      }, false
+    );
+    </script>
   </body>
 </html>
